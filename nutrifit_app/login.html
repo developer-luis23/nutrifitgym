@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para alternar el modo nocturno
+            function toggleDarkMode() {
+                document.body.classList.toggle("dark-mode");
+                localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+            }
+
+            // Restaurar el estado del modo nocturno desde el almacenamiento local
+            const savedDarkMode = localStorage.getItem("darkMode");
+            if (savedDarkMode === "true") {
+                document.body.classList.add("dark-mode");
+            }
+
+            document.getElementById('dark-mode-switch').addEventListener('change', toggleDarkMode);
+
+     
+        });
+    </script>
+</head>
+<body>
+    <!-- Fondo del login -->
+    <video autoplay muted loop id="background-video">
+        <source src="fondo1.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
+    <div class="overlay"></div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <form id="login-form" action="login.php" method="POST">
+            <fieldset>
+                <legend>Login</legend>
+
+                <!-- Campo de correo -->
+                <label for="email">Correo Electrónico:</label>
+                <input type="text" id="email" name="email" placeholder="ejemplo@correo.com" required aria-label="Correo Electrónico">
+
+                <!-- Campo de contraseña -->
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required minlength="8" aria-label="Contraseña">
+
+                <center><button type="submit" class="login-button">Login</button></center>
+                <center><p class="center-text">Quiero registrarme <a href="register.html">Regístrate</a></p></center>
+                <center><p class="center-text">Olvide mi contraseña <a href="recover.html">Recupérala</a></p></center>
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Interruptor de modo nocturno -->
+    <div class="dark-mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-switch" aria-label="Alternar modo nocturno">
+            <span class="slider">
+                <span class="slider-icon sun">☀️</span>
+                <span class="slider-icon moon">🌒</span>
+            </span>
+        </label>
+    </div>
+</body>
+</html>

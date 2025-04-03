@@ -1,0 +1,174 @@
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+/* Video de fondo */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Menú de navegación */
+.menu-desplegable {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro translúcido */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 2;
+    margin-top: 0; /* Asegura que se fije en la parte superior */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4); /* Sombra elegante */
+}
+
+.menu-desplegable ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-desplegable li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.menu-desplegable a {
+    text-decoration: none;
+    color: #66bb6a; /* Verde vibrante */
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.menu-desplegable a:hover {
+    color: #fff; /* Blanco al pasar el ratón */
+    text-decoration: none; /* Subrayado elegante */
+    
+}
+
+/* Información */
+.gimnasio-info {
+    margin-top: 90px;
+    margin-left: 90px;
+    margin-right: 90px;
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    color: #333;
+}
+
+body.dark-mode .gimnasio-info {
+    background: rgba(50, 50, 50, 0.8);
+    color: #fff; /* Cambia el color del texto a blanco para modo nocturno */
+}
+
+/* Modo oscuro */
+.dark-mode-toggle {
+    position: fixed;
+    top: 40px;
+    right: 15px;
+    z-index: 2;
+}
+
+.switch {
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    position: relative;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Iconos */
+.slider-icon {
+    position: absolute;
+    font-size: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider-icon.sun {
+    left: 8px;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.slider-icon.moon {
+    right: 8px;
+    opacity: 1;
+    transition: opacity 0.4s;
+}
+
+input:checked + .slider .sun {
+    opacity: 1;
+}
+
+input:checked + .slider .moon {
+    opacity: 0;
+}

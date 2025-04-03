@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function toggleDarkMode() {
+            let element = document.body;
+            element.classList.toggle("dark-mode");
+        }
+
+        document.getElementById('dark-mode-switch').addEventListener('change', toggleDarkMode);
+    </script>
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="fondo2.mp4" type="video/mp4">
+        Tu navegador no soporta la etiqueta de video.
+    </video>
+    <div class="overlay"></div>
+    <div class="container">
+        <form action="recover.php" method="post">
+            <fieldset>
+                <legend>Recuperar Contraseña</legend>
+                <label for="email">Correo Electrónico:</label>
+                <input type="text" id="email" name="email" required><br>
+                <div class="button-group">
+                    <button type="submit">Enviar</button>
+                </div>
+                <p class="center-text">¿Ya tienes una cuenta? <a href="login.html">Iniciar Sesión</a></p>
+            </fieldset>
+        </form>
+    </div>
+    <div class="dark-mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-switch" onclick="toggleDarkMode()">
+            <span class="slider">
+                <span class="slider-icon sun">☀️</span>
+                <span class="slider-icon moon">🌒</span>
+            </span>
+        </label>
+    </div>
+</body>
+</html>

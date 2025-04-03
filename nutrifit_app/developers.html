@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <!-- Video de fondo -->
+    <div class="video-background">
+        <video autoplay loop muted>
+            <source src="fondo3.mp4" type="video/mp4">
+        </video>
+        <!-- Capa de superposición -->
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Menú de navegación -->
+    <nav class="menu-desplegable">
+        <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#repositorios">Repositorios</a></li>
+                <li><a href="#documentacion">Documentación</a></li>
+                <li><a href="#bases-datos">Bases de Datos</a></li>
+                <li><a href="#herramientas">Herramientas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="login.html">Cerrar Sesión</a></li>             
+        </ul>
+    </nav>
+
+    <!-- Información del gimnasio -->
+    <div id="info-gimnasio" class="gimnasio-info">
+        <h2>Información del Gimnasio</h2>
+        <p>¡Bienvenido a nuestro gimnasio! Aquí puedes encontrar las herramientas nesecarias para tu desarrollo como desarrollador.</p>
+        <p>En esta sección podrás encontrar repositorios, documentación, bases de datos, herramientas y mucho más.</p>
+    </div>
+
+    <!-- Selector de modo oscuro -->
+    <div class="dark-mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="dark-mode-switch" onclick="toggleDarkMode()">
+            <span class="slider">
+                <span class="slider-icon sun">☀️</span>
+                <span class="slider-icon moon">🌒</span>
+            </span>
+        </label>
+    </div>
+
+    <script>
+        // Funcionalidad para el modo oscuro
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+
+</html>
