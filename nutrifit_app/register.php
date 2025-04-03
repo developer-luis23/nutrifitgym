@@ -35,43 +35,26 @@ try {
             throw new Exception("El correo ya está registrado.");
         }
 
-        // Inserción de datos en la tabla usuarios (sin rol inicialmente)
-        $sql = "INSERT INTO usuarios (nombre, apellido, email, contraseña) VALUES (?, ?, ?, ?)";
+        // Contar registros actuales en la tabla usuarios
+        $query_count_users = "SELECT COUNT(*) AS count FROM usuarios";
+        $result_count_users = $conn->query($query_count_users);
+        $row_count_users = $result_count_users->fetch_assoc();
+        $total_usuarios = $row_count_users['count'];
+
+        // Definir el rol basado en el número de registros
+        define('ROL_ADMINISTRADOR', 1);
+        define('ROL_TECNICO', 2);
+        define('ROL_USUARIO', 3);
+
+        $rol_id = ($total_usuarios == 0) ? ROL_ADMINISTRADOR : (($total_usuarios == 1) ? ROL_TECNICO : ROL_USUARIO);
+
+        // Inserción de datos en la tabla usuarios
+        $sql = "INSERT INTO usuarios (nombre, apellido, email, contraseña, rol_id) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $nombre, $apellido, $email, $contraseña);
+        $stmt->bind_param("ssssi", $nombre, $apellido, $email, $contraseña, $rol_id);
 
         if ($stmt->execute()) {
-            $id = $stmt->insert_id; // Obtener el ID del registro recién creado
-
-            // Asignación automática de rol basado en condiciones
-            define('ROL_ADMINISTRADOR', 1);
-            define('ROL_TECNICO', 2);
-            define('ROL_USUARIO', 3);
-
-            $rol_id = ($id == 1) ? ROL_ADMINISTRADOR : (($id % 2 == 0) ? ROL_TECNICO : ROL_USUARIO);
-
-            // Validar que el rol existe en la tabla roles antes de asignarlo
-            $query_check_role = "SELECT COUNT(*) AS count FROM roles WHERE id = ?";
-            $stmt_check_role = $conn->prepare($query_check_role);
-            $stmt_check_role->bind_param("i", $rol_id);
-            $stmt_check_role->execute();
-            $result_role = $stmt_check_role->get_result();
-            $row_role = $result_role->fetch_assoc();
-
-            if ($row_role['count'] == 0) {
-                throw new Exception("Error: El rol asignado automáticamente no existe en la tabla roles.");
-            }
-
-            // Actualización del rol en la tabla usuarios
-            $sql_rol = "UPDATE usuarios SET rol_id = ? WHERE id = ?";
-            $stmt_rol = $conn->prepare($sql_rol);
-            $stmt_rol->bind_param("ii", $rol_id, $id);
-
-            if ($stmt_rol->execute()) {
-                echo json_encode(['success' => 'Usuario registrado correctamente con rol asignado automáticamente.']);
-            } else {
-                throw new Exception("Error al asignar el rol: " . $stmt_rol->error);
-            }
+            echo json_encode(['success' => 'Usuario registrado correctamente con rol asignado automáticamente.']);
         } else {
             throw new Exception("Error en la inserción: " . $stmt->error);
         }
@@ -82,8 +65,6 @@ try {
 } finally {
     if (isset($stmt)) $stmt->close();
     if (isset($stmt_check_email)) $stmt_check_email->close();
-    if (isset($stmt_check_role)) $stmt_check_role->close();
-    if (isset($stmt_rol)) $stmt_rol->close();
     $conn->close();
 }
 
